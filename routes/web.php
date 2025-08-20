@@ -4,11 +4,18 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Counter;
+use App\Livewire\BookList;
+use App\Livewire\CreateBook;
+use App\Livewire\EditBook;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('home');*/
+
+//livewire
+Route::get('/', BookList::class);
+Route::get('/create', CreateBook::class);
+Route::get('/edit/{bookId}', EditBook::class)->name('book.edit');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -21,6 +28,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
-//livewire
-Route::get('/counter', Counter::class);
+
 require __DIR__.'/auth.php';
